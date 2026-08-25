@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>podpatrol — a squad that builds a document</title>
+<link href="https://fonts.googleapis.com/css2?family=Bitter:wght@400;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+ :root{--paper:#fdfaf2;--ink:#2c2317;--dim:#5c503d;--faint:#8a7a62;--rule:rgba(60,40,25,.18);
+  --accent:#a8321e;--ok:#147846;--warn:#c07a12;--blue:#1d6fa8}
+ *{box-sizing:border-box}
+ body{margin:0;background:#e8e2d4;color:var(--ink);font:400 14px/1.6 'Bitter',Georgia,serif;padding:30px}
+ .wrap{max-width:1200px;margin:0 auto;display:flex;flex-direction:column;gap:18px}
+ .mono{font-family:'JetBrains Mono',ui-monospace,monospace}
+ header{display:flex;align-items:flex-end;gap:20px}
+ .kicker{font:500 11px/1 'JetBrains Mono',monospace;letter-spacing:.18em;color:var(--faint)}
+ h1{margin:5px 0 0;font:700 30px/1.14 'Bitter',serif;letter-spacing:-.015em}
+ p.lede{margin:4px 0 0;max-width:760px;color:var(--dim);text-wrap:pretty}
+ .ctl{flex:none;width:216px;display:flex;flex-direction:column;gap:7px}
+ button,.btn{font:inherit;cursor:pointer;border:0;text-align:center}
+ .primary{padding:12px 14px;background:var(--accent);border-radius:4px;color:#fff;
+  box-shadow:0 2px 0 #7d2416;font:700 12px/1 'JetBrains Mono',monospace;letter-spacing:.14em}
+ .primary small{display:block;margin-top:4px;font:400 9.5px/1.3 'JetBrains Mono',monospace;
+  letter-spacing:0;color:rgba(255,255,255,.72)}
+ .ghost{padding:9px;border:1px solid var(--rule);border-radius:4px;background:transparent;
+  font:600 10px/1 'JetBrains Mono',monospace;letter-spacing:.12em;color:var(--dim)}
+ .goalbox{border:1px solid rgba(60,40,25,.22);border-radius:4px;padding:8px 9px;background:#fff}
+ .goalbox h3{margin:0;font:700 9px/1 'JetBrains Mono',monospace;letter-spacing:.12em;color:var(--faint)}
+ input,textarea{font:inherit;width:100%;border:1px solid var(--rule);border-radius:3px;
+  padding:6px 8px;background:#fff;color:var(--ink);outline:none}
+ input{font-size:11px}
+ .plan{margin-top:7px;padding-top:6px;border-top:1px dashed var(--rule);
+  font:400 9px/1.5 'JetBrains Mono',monospace;color:var(--faint);text-wrap:pretty}
+ main{display:flex;gap:18px;align-items:flex-start}
+ .doc{position:relative;flex:1;min-width:0;height:700px;background:var(--paper);
+  border:1px solid var(--rule);border-radius:5px;overflow:hidden;
+  box-shadow:0 1px 2px rgba(0,0,0,.05),0 16px 44px rgba(60,40,25,.1)}
+ .docbar{min-height:52px;border-bottom:2px solid var(--accent);display:flex;align-items:center;
+  gap:12px;padding:6px 18px;background:#fff}
+ .docbar h2{margin:0;font:700 15px/1.25 'Bitter',serif}
+ .docbar .meta{margin-top:2px;font:400 10px/1.3 'JetBrains Mono',monospace;letter-spacing:.08em;color:var(--faint)}
+ .scroll{position:absolute;top:52px;left:0;right:0;bottom:0;overflow-y:auto;padding:20px 24px 60px}
+ .sections{display:flex;flex-direction:column;gap:14px;max-width:640px}
+ .sec{position:relative;border:1px solid var(--rule);border-left:3px solid var(--faint);
+  border-radius:4px;background:#fff;padding:14px 16px;animation:in .34s ease both}
+ @keyframes in{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+ @keyframes edge{0%{opacity:0}15%{opacity:1}100%{opacity:0}}
+ .sec .tag{font:700 10px/1.4 'JetBrains Mono',monospace;letter-spacing:.12em}
+ .sec .title{font:700 16px/1.25 'Bitter',serif}
+ .sec .state{margin-left:auto;font:400 9px/1.4 'JetBrains Mono',monospace;letter-spacing:.06em}
+ .flash{margin-left:auto;padding:2px 7px;border-radius:3px;color:#fff;
+  font:700 8.5px/1.4 'JetBrains Mono',monospace;letter-spacing:.1em}
+ .glow{position:absolute;left:-3px;top:0;bottom:0;width:3px;animation:edge 2.6s ease-out both;pointer-events:none}
+ .body{margin-top:9px;font-size:13.5px;line-height:1.7;color:#3b3225;text-wrap:pretty}
+ .steps{margin-top:10px;display:flex;flex-direction:column;gap:6px}
+ .steps div{display:flex;gap:9px;align-items:flex-start;font-size:12.5px;line-height:1.6}
+ .steps i{flex:none;width:17px;height:17px;border-radius:50%;color:#fff;font-style:normal;
+  font:700 9.5px/17px 'JetBrains Mono',monospace;text-align:center}
+ .done{margin-top:10px;padding:8px 10px;border-radius:3px;background:#f6f2e6}
+ .done h4{margin:0;display:flex;font:700 8.5px/1 'JetBrains Mono',monospace;letter-spacing:.12em;color:var(--faint)}
+ .done .score{margin-left:auto}
+ .done ul{margin:6px 0 0;padding:0;list-style:none;display:flex;flex-direction:column;gap:4px}
+ .done li{display:flex;gap:7px;align-items:flex-start;font-size:11px;line-height:1.45}
+ .done b{flex:none;width:12px;height:12px;margin-top:2px;border-radius:2px;border:1px solid var(--rule);
+  color:#fff;font:700 8px/11px 'JetBrains Mono',monospace;text-align:center}
+ .notes{margin-top:10px;display:flex;flex-direction:column;gap:5px}
+ .notes div{display:flex;gap:8px;padding:6px 9px;border-radius:3px;font-size:11.5px;line-height:1.55}
+ .notes span{flex:none;font:700 8.5px/1.6 'JetBrains Mono',monospace;letter-spacing:.1em}
+ .cite{margin-top:9px;padding-top:8px;border-top:1px dashed var(--rule);
+  font:400 10px/1.5 'JetBrains Mono',monospace;color:var(--faint);text-wrap:pretty}
+ .empty{height:400px;display:flex;flex-direction:column;align-items:center;justify-content:center;
+  gap:10px;text-align:center;font-family:'JetBrains Mono',monospace;color:#b0a289}
+ .card{border:2px solid var(--ink);border-radius:4px;background:var(--ink);padding:15px 17px}
+ .card h4{margin:0;font:700 10px/1.4 'JetBrains Mono',monospace;letter-spacing:.14em;color:#e8b33a}
+ .card ul{margin:10px 0 0;padding:0;list-style:none;display:flex;flex-direction:column;gap:6px}
+ .card li{display:flex;gap:10px;align-items:baseline;color:#f2ece0;font-size:12.5px}
+ .card b{flex:none;width:96px;font:700 10.5px/1.5 'JetBrains Mono',monospace;
+  letter-spacing:.06em;color:#e8b33a}
+ aside{flex:none;width:340px;display:flex;flex-direction:column;gap:12px}
+ .panel{border:1px solid var(--rule);border-radius:5px;background:var(--paper);padding:13px}
+ .panel h3{margin:0;font:500 10px/1 'JetBrains Mono',monospace;letter-spacing:.16em;color:var(--faint)}
+ .roster{margin-top:9px;display:flex;flex-direction:column;gap:7px}
+ .roster div{border:1px solid rgba(60,40,25,.14);border-radius:4px;background:#fff;padding:9px 10px;cursor:pointer}
+ .roster .hd{display:flex;align-items:center;gap:8px}
+ .roster .dot{width:7px;height:7px;border-radius:50%}
+ .roster .lb{font:700 11px/1 'JetBrains Mono',monospace;letter-spacing:.1em}
+ .roster .beat{font:400 10px/1 'JetBrains Mono',monospace;color:#a3947c}
+ .roster .stops{margin-left:auto;font:400 9px/1 'JetBrains Mono',monospace;color:#b0a289}
+ .roster .brief{margin-top:5px;font-size:11.5px;line-height:1.5;color:var(--dim);text-wrap:pretty}
+ .log{margin-top:10px;display:flex;flex-direction:column;gap:9px;max-height:428px;overflow-y:auto}
+ .log .e{display:flex;gap:8px;align-items:flex-start;cursor:pointer;animation:in .22s ease both}
+ .log .bul{flex:none;width:5px;height:5px;margin-top:6px;border-radius:50%}
+ .log .hd{display:flex;align-items:center;gap:6px}
+ .log .t{font:400 9px/1.3 'JetBrains Mono',monospace;color:#b0a289;font-variant-numeric:tabular-nums}
+ .log .who{font:700 9.5px/1.3 'JetBrains Mono',monospace;letter-spacing:.08em}
+ .log .vb{font:400 9px/1.3 'JetBrains Mono',monospace;color:#c0b49d}
+ .log .tx{margin-top:2px;font-size:12px;line-height:1.55;color:#453c2d;text-wrap:pretty}
+ .decide{position:absolute;left:14px;right:14px;bottom:14px;z-index:94;border-radius:5px;
+  background:#fff;box-shadow:0 14px 40px rgba(60,40,25,.26);padding:12px 13px}
+ .decide.split{border:2px solid var(--accent)}
+ .decide.quorum{border:1px solid rgba(20,120,70,.45);background:#f0f9f3;display:flex;
+  align-items:center;gap:11px}
+ .decide .row2{margin-top:11px;display:flex;gap:8px}
+ .decide .row2 button{flex:1;padding:8px;border-radius:3px;
+  font:700 10px/1 'JetBrains Mono',monospace;letter-spacing:.1em}
+ footer{border-top:1px solid var(--rule);padding-top:14px;color:#6b5c46;font-size:12.5px;
+  max-width:900px;text-wrap:pretty}
+ a{color:var(--accent);text-decoration:none}a:hover{color:#7d2416}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+ <div style="flex:1">
+  <div class="kicker">PODPATROL · COLLABORATIVE BUILD</div>
+  <h1>Four agents writing a document, and improving each other's work</h1>
+  <p class="lede">The document starts empty. Give the squad a goal and it plans its own artifacts —
+  with acceptance criteria — then drafts, fact-checks and argues its way through them. Every tool
+  mutates the real document. Runs on stubbed responses out of the box; add a key to make it live.</p>
+ </div>
+ <div class="ctl">
+  <button class="primary" id="build">BUILD<small>plan, then run it</small></button>
+  <div class="goalbox">
+   <h3>GOAL</h3>
+   <input id="goal" placeholder="anything — they plan it themselves"
+    value="document how to safely rotate a leaked API key">
+   <div class="plan" id="planline">no plan yet</div>
+  </div>
+  <div class="goalbox">
+   <h3>MODEL (OPTIONAL)</h3>
+   <input id="key" type="password" placeholder="OpenRouter key — blank runs stubbed">
+   <input id="model" placeholder="anthropic/claude-sonnet-4" style="margin-top:5px">
+  </div>
+  <button class="ghost" id="clear">CLEAR EVERYTHING</button>
+ </div>
+</header>
+
+<main>
+ <div class="doc" id="doc">
+  <div class="docbar">
+   <div style="flex:1;min-width:0">
+    <h2 id="dtitle">Working draft</h2>
+    <div class="meta" id="dmeta">nothing drafted</div>
+   </div>
+   <span class="mono" id="backend" style="font-size:10px;letter-spacing:.06em;color:#b0a289">STUBBED</span>
+  </div>
+  <div class="scroll" id="scroll">
+   <div class="empty" id="empty">
+    <div>No sections yet.<br>The squad has not been convened.</div>
+    <div style="font-size:11px;color:#c4b8a2">awaiting orders</div>
+   </div>
+   <div class="sections" id="sections"></div>
+  </div>
+ </div>
+
+ <aside>
+  <div class="panel">
+   <h3>THE SQUAD</h3>
+   <div class="roster" id="roster"></div>
+   <div style="margin-top:9px;display:flex;gap:6px">
+    <button class="ghost" id="trails" style="flex:1">SHOW ALL TRAILS</button>
+    <button class="ghost" id="reveal" style="flex:1">HOLD ⌥ REVEAL</button>
+   </div>
+  </div>
+  <div class="panel" style="display:flex;flex-direction:column;min-height:0">
+   <div style="display:flex;align-items:center;gap:8px">
+    <h3 style="flex:none">TRANSCRIPT</h3>
+    <span id="needs" style="display:none;padding:3px 7px;border-radius:3px;background:var(--accent);
+     color:#fff;font:700 8.5px/1.4 'JetBrains Mono',monospace;letter-spacing:.1em;cursor:pointer">NEEDS YOU</span>
+    <label style="margin-left:auto;display:flex;align-items:center;gap:5px;cursor:pointer;
+     font:500 9px/1 'JetBrains Mono',monospace;letter-spacing:.08em;color:var(--faint)">
+     <input type="checkbox" id="follow" checked style="width:auto;padding:0">FOLLOW</label>
+    <span class="mono" id="logn" style="font-size:9.5px;color:#b0a289">0</span>
+   </div>
+   <div class="log" id="log"></div>
+  </div>
+ </aside>
+</main>
+
+<footer>They share one goal, so disagreement here is a second pair of eyes rather than a fight: a
+challenge that fails is recorded as a compliment, an assist is credited to whoever supplied it, and
+anything nobody can source stays marked <em>disputed</em> — flagged as a to-do, not a failure.
+See <a href="../README.md">the README</a> for the outcome contract.</footer>
+</div>
+
+<script src="../podpatrol.js"></script>
+<script src="guide-build.js"></script>
+</body>
+</html>

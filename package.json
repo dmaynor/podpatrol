@@ -1,0 +1,31 @@
+{
+  "name": "podpatrol",
+  "version": "0.1.0",
+  "description": "Agents that show their work instead of a spinner. An autonomous support-pod overlay for any web interface.",
+  "main": "podpatrol.js",
+  "files": [
+    "podpatrol.js",
+    "README.md",
+    "LICENSE"
+  ],
+  "keywords": [
+    "agents",
+    "ui",
+    "overlay",
+    "llm",
+    "tools",
+    "autonomous",
+    "visible-work",
+    "pods"
+  ],
+  "author": "David Maynor",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dmaynor/podpatrol.git"
+  },
+  "homepage": "https://github.com/dmaynor/podpatrol#readme",
+  "sideEffects": [
+    "podpatrol.js"
+  ]
+}

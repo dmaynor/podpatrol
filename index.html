@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>podpatrol — the start of something aware</title>
+<link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Bitter:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+ :root{--bg:#0d1117;--panel:#010409;--line:#21262d;--fg:#e6edf3;--dim:#8b949e;--faint:#6e7681;--accent:#58a6ff}
+ *{box-sizing:border-box}
+ body{margin:0;background:var(--bg);color:var(--fg);padding:34px 26px 60px;
+  font:400 14px/1.7 'JetBrains Mono',ui-monospace,SFMono-Regular,Menlo,monospace}
+ .wrap{max-width:880px;margin:0 auto;display:flex;flex-direction:column;gap:26px}
+ h1{margin:0;font:700 30px/1.15 'Bitter',Georgia,serif;letter-spacing:-.015em}
+ .kicker{font:500 10px/1 inherit;letter-spacing:.22em;color:var(--dim)}
+ .tag{margin:8px 0 0;color:var(--dim);font-size:13px}
+ p{margin:0;color:var(--dim);text-wrap:pretty}
+ p strong{color:var(--fg);font-weight:500}
+ img{display:block;width:100%;height:auto;border:1px solid var(--line);border-radius:6px;background:var(--panel)}
+ h2{margin:0 0 2px;font:700 12px/1 inherit;letter-spacing:.16em;color:var(--dim)}
+ .cards{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+ a.card{display:block;padding:14px 15px;border:1px solid var(--line);border-radius:6px;
+  background:var(--panel);text-decoration:none;color:inherit}
+ a.card:hover{border-color:var(--accent)}
+ a.card b{display:block;font:600 13px/1.4 'Bitter',serif;color:var(--fg)}
+ a.card span{display:block;margin-top:5px;font-size:11.5px;line-height:1.6;color:var(--dim)}
+ pre{margin:0;padding:13px 14px;border:1px solid var(--line);border-radius:6px;
+  background:var(--panel);overflow-x:auto;font-size:12px;line-height:1.7;color:#adbac7}
+ footer{border-top:1px solid var(--line);padding-top:14px;font-size:11.5px;color:var(--faint)}
+ a{color:var(--accent);text-decoration:none}a:hover{text-decoration:underline}
+</style>
+</head>
+<body>
+<div class="wrap">
+ <header>
+  <div class="kicker">PODPATROL</div>
+  <h1>Agents that show their work</h1>
+  <p class="tag">the start of something aware.</p>
+ </header>
+
+ <img src="docs/hero.svg" alt="Four pods docked at the edges of a page, tethered to what they are working on">
+
+ <p>A spinner hides work, and hidden work is indistinguishable from nothing happening. A pod flying
+ to the paragraph it is checking, filling a progress arc at the speed of the real fetch, then
+ reporting what it found — that is the same latency rendered as <strong>visible labour</strong>. It
+ also buys honesty for free: when a claim ends up marked <em>disputed</em>, you watched the pod try
+ to verify it and fail, so the caveat is earned rather than boilerplate.</p>
+
+ <div>
+  <h2>RUN IT</h2>
+  <div class="cards">
+   <a class="card" href="demos/guide-build.html"><b>Document build</b><span>The squad plans its own
+   artifacts with acceptance criteria, then drafts, checks and argues through them. Stubbed by
+   default; add a key to make it live.</span></a>
+   <a class="card" href="tests/index.html"><b>Regression suite</b><span>34 cases, each named after a
+   bug this library actually shipped. Verbose mode shows every assertion and the test's own
+   source.</span></a>
+  </div>
+ </div>
+
+ <div>
+  <h2>THE OUTCOME CONTRACT</h2>
+  <img src="docs/contract.svg" alt="ok, partial, none and skip, and where each one goes" style="margin-top:8px">
+ </div>
+
+ <div>
+  <h2>INSTALL</h2>
+  <pre>&lt;script src="podpatrol.js"&gt;&lt;/script&gt;
+
+&lt;div style="position:relative"&gt;
+  &lt;article data-pod-target="c1" data-pod-name="Termination clause"&gt;…&lt;/article&gt;
+  &lt;pod-patrol autonomy="quorum"&gt;&lt;/pod-patrol&gt;
+&lt;/div&gt;</pre>
+ </div>
+
+ <footer>One file, no dependencies, no build step. MIT. See the
+ <a href="https://github.com/dmaynor/podpatrol">repository</a> and the
+ <a href="https://github.com/dmaynor/podpatrol#readme">README</a> for the full API.</footer>
+</div>
+</body>
+</html>

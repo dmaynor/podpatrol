@@ -1,0 +1,7 @@
+node_modules/
+.DS_Store
+scraps/
+uploads/
+screenshots/
+walkthrough/
+support.js

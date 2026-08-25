@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 960 260" width="960" height="260" role="img" aria-label="podpatrol">
+<rect width="960" height="260" rx="6" fill="#0d1117"></rect>
+<g fill="none" stroke="#7d8894" stroke-width="1.1">
+ <rect x="286" y="46" width="388" height="168" rx="3"></rect>
+ <g opacity=".45"><path d="M312 82h248M312 100h206M312 118h236M312 150h188M312 168h224"></path></g>
+ <rect x="300" y="136" width="228" height="46" rx="2" opacity=".8"></rect>
+</g>
+<rect x="300" y="66" width="272" height="34" rx="2" fill="none" stroke="#58a6ff" stroke-width="1.4"></rect>
+<g fill="none" stroke="#7d8894" stroke-width="1" stroke-dasharray="4 4" opacity=".75">
+ <path d="M148 96C210 96 250 82 300 83"></path>
+ <path d="M812 168C750 168 700 160 528 159"></path>
+</g>
+<g transform="translate(122 96)">
+ <circle r="26" fill="none" stroke="#7d8894" stroke-dasharray="4 4" opacity=".6"></circle>
+ <circle r="17" fill="#0d1117" stroke="#a7b1bd" stroke-width="1.1"></circle>
+ <path d="M0 -17A17 17 0 0 1 14.7 8.5" fill="none" stroke="#58a6ff" stroke-width="2.8"></path>
+ <circle r="7" fill="none" stroke="#a7b1bd" stroke-width="1.1"></circle>
+ <circle r="2.6" fill="#58a6ff"></circle>
+ <g stroke="#a7b1bd" stroke-width="1.1"><path d="M-17 0-30-13M17 0 30-13M-12 12-22 26M12 12 22 26"></path></g>
+</g>
+<text x="122" y="152" text-anchor="middle" fill="#8b949e" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="9" letter-spacing="1.3">SCOUT · TRACE 62%</text>
+<g transform="translate(838 168)" opacity=".62">
+ <circle r="17" fill="#0d1117" stroke="#a7b1bd" stroke-width="1.1"></circle>
+ <circle r="7" fill="none" stroke="#a7b1bd" stroke-width="1.1"></circle>
+ <circle r="2.6" fill="#58a6ff"></circle>
+ <g stroke="#a7b1bd" stroke-width="1.1"><path d="M-17 0-30-13M17 0 30-13M-12 12-22 26M12 12 22 26"></path></g>
+</g>
+<text x="838" y="224" text-anchor="middle" fill="#8b949e" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="9" letter-spacing="1.3">AUDIT · IDLE</text>
+<text x="480" y="30" text-anchor="middle" fill="#e6edf3" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="15" font-weight="600" letter-spacing="4">P O D P A T R O L</text>
+<text x="480" y="246" text-anchor="middle" fill="#8b949e" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="11">the start of something aware.</text>
+</svg>

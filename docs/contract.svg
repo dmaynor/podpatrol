@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 300" width="880" height="300" role="img" aria-label="outcome contract: ok, partial, none, skip">
+<rect width="880" height="300" rx="6" fill="#0d1117"></rect>
+<g font-family="ui-monospace,SFMono-Regular,Menlo,monospace">
+ <text x="20" y="26" fill="#e6edf3" font-size="12" font-weight="600" letter-spacing="2">THE OUTCOME CONTRACT</text>
+ <text x="20" y="45" fill="#8b949e" font-size="10">what a tool returns decides what the squad does next</text>
+</g>
+<rect x="18" y="58" width="844" height="226" rx="3" fill="none" stroke="#7d8894" stroke-width="1" opacity=".3"></rect>
+<g transform="translate(84 170)">
+ <circle r="24" fill="none" stroke="#7d8894" stroke-dasharray="4 4" opacity=".55"></circle>
+ <circle r="15" fill="#0d1117" stroke="#a7b1bd" stroke-width="1.1"></circle>
+ <circle r="6" fill="none" stroke="#a7b1bd" stroke-width="1.1"></circle>
+ <circle r="2.4" fill="#58a6ff"></circle>
+</g>
+<text x="84" y="214" text-anchor="middle" fill="#8b949e" font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="10">tool runs</text>
+<g fill="none" stroke-width="1.3">
+ <path d="M110 170C160 170 176 88 214 88" stroke="#3fb950"></path>
+ <path d="M110 170C160 170 176 142 214 142" stroke="#d29922"></path>
+ <path d="M110 170C160 170 176 200 214 200" stroke="#f85149"></path>
+ <path d="M110 170C160 170 176 254 214 254" stroke="#7d8894"></path>
+</g>
+<g font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="11" font-weight="500">
+ <text x="222" y="84" fill="#3fb950">{ok}</text>
+ <text x="222" y="138" fill="#d29922">{partial}</text>
+ <text x="222" y="196" fill="#f85149">{none}</text>
+ <text x="222" y="250" fill="#c9d1d9">{skip}</text>
+</g>
+<g font-family="ui-monospace,SFMono-Regular,Menlo,monospace" font-size="10" fill="#8b949e">
+ <text x="330" y="84">recorded as a result · lands on the trail</text>
+ <text x="330" y="138">recorded honestly, with the caveat kept</text>
+ <text x="330" y="192">I tried and could not reach it</text>
+ <text x="350" y="208" fill="#adbac7">→ pod flags itself, a free peer is asked</text>
+ <text x="330" y="246">there was nothing valid to do</text>
+ <text x="350" y="262" fill="#adbac7">→ recorded, pod idles, nobody escalated</text>
+</g>
+</svg>
